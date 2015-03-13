@@ -23,13 +23,12 @@ public class DAOtest {
 	}
 	
 	@Test
-	public void insertTest() throws SQLException{
-		userDAO.insert(new User("test","apapps","kim","mail@mail.com"));
-	}
-	
-	@Test
-	public void selectTest() throws SQLException{
-		User user = userDAO.select("test");
-		assertEquals(new User("test","apapps","kim","mail@mail.com"),user);
+	public void CRUDTest() throws SQLException{
+		User user = new User("test","1234","kim","test@mail.com");
+		userDAO.delete(user.getUserId());
+		userDAO.insert(user);
+		User findedUser = userDAO.select(user.getUserId());
+		
+		assertEquals(user,findedUser);
 	}
 }

@@ -48,5 +48,13 @@ public class UserDAO {
 		
 		return new User(rs.getString("userId"), rs.getString("password"), rs.getString("name"), rs.getString("email"));
 	}
+	
+	public void delete(String userId) throws SQLException{
+		String sql = "DELETE FROM USERS WHERE userId = ?";
+		PreparedStatement pstmt = getConnection().prepareStatement(sql);
+		pstmt.setString(1, userId);
+		
+		pstmt.executeUpdate();
+	}
 
 }
