@@ -1,12 +1,18 @@
 package net.mocca.model;
 
 import static org.junit.Assert.*;
-import net.mocca.db.Database;
+import net.mocca.dao.UserDAO;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class UserTest {
 
+	@Before 
+	public void setUp(){
+		
+	}
+	
 	@Test
 	public void checkPassword(){
 		User user = new User("uid","password","name","email");
@@ -18,7 +24,8 @@ public class UserTest {
 	@Test
 	public void loginCheck() throws Exception{
 		User member = new User("user1", "password", "name", "email");
-		Database.addUser(member);	
+		UserDAO userDAO = new UserDAO();
+		userDAO.insert(member);
 		assertTrue(User.login(member.getUserId(), member.getPassword())) ;
 	}
 	
@@ -32,7 +39,8 @@ public class UserTest {
 	@Test(expected=PasswordMismatchException.class)
 	public void loginWhenPasswordMismatch() throws Exception{
 		User member = new User("user2", "password", "name", "email");
-		Database.addUser(member); 	 
+		UserDAO userDAO = new UserDAO();
+		userDAO.insert(member); 	 
 		User.login(member.getUserId(), "잘못된패스워드");
 	}
 }
