@@ -19,8 +19,15 @@ import net.mocca.model.*;
 @WebServlet("/user/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final String SESSION_USER_ID = "userId";
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	}
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
+		String userId = request.getParameter(SESSION_USER_ID);
 		String password = request.getParameter("password");
 		
 		try {

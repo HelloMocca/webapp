@@ -43,6 +43,7 @@ public class UserDAO {
 		
 		//Null Exception
 		if(!rs.next()){
+			System.out.println("UserDAO: User not found! "+userId);
 			return null;
 		}
 		

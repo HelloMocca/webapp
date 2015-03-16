@@ -88,6 +88,12 @@ public boolean checkPassword(String _password) {
 		User user = null;
 		UserDAO userDAO = new UserDAO();
 		
+		if (userId == null) {
+			System.out.println("User.login: userId is null");
+			throw new UserNotFoundException();
+		}
+		
+		
 		try {
 			user = userDAO.select(userId);
 		} catch (SQLException e) {

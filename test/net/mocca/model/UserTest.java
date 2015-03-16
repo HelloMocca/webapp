@@ -9,20 +9,19 @@ import org.junit.Test;
 public class UserTest {
 
 	@Before 
-	public void setUp(){
+	public void setUp() {
 		
 	}
 	
 	@Test
-	public void checkPassword(){
+	public void checkPassword() {
 		User user = new User("uid","password","name","email");
 		boolean result = user.checkPassword("password");
-		
 		assertTrue(result);
 	}
 	
 	@Test
-	public void loginCheck() throws Exception{
+	public void loginCheck() throws Exception {
 		User member = new User("user1", "password", "name", "email");
 		UserDAO userDAO = new UserDAO();
 		userDAO.insert(member);
@@ -30,14 +29,13 @@ public class UserTest {
 	}
 	
 	@Test(expected=UserNotFoundException.class)
-	public void loginWhenNotExistedUser() throws Exception{
+	public void loginWhenNotExistedUser() throws Exception {
 		User member = new User("user2", "password", "name", "email");
-		 	
 		User.login(member.getUserId(), member.getPassword());
 	}
 	
 	@Test(expected=PasswordMismatchException.class)
-	public void loginWhenPasswordMismatch() throws Exception{
+	public void loginWhenPasswordMismatch() throws Exception {
 		User member = new User("user2", "password", "name", "email");
 		UserDAO userDAO = new UserDAO();
 		userDAO.insert(member); 	 
