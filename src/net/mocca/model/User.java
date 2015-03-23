@@ -19,7 +19,10 @@ public class User {
 	  this.email = email;
   }
   
-  public String getName() {
+  public User() {
+}
+
+public String getName() {
 	  return name;
   }
 

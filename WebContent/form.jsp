@@ -14,35 +14,57 @@
 </head>
 <body>
     <%@ include file="./commons/_topnav.jspf" %>
-
 	<div class="container">
 		<div class="row">
 			<div class="span12">
 				<section id="typography">
 				<div class="page-header">
-					<h1>회원가입</h1>
-				</div>
+				<c:choose>
+					<c:when test="${empty user.userId}">
+						<c:set var="actionUrl" value="/user/create" />
+						<c:set var="submitValue" value="회원가입" />
+						<h1>회원가입</h1>
+					</c:when>
+					<c:otherwise>
+						<h1>정보수정</h1>
+					</c:otherwise>
+				</c:choose>
 				
-				<form name="user" method="post" action="/user/create">
+				<c:set var="actionUrl" value="/user/create" />
+				<c:set var="submitValue" value="회원가입" />
+				<c:if test="${not empty user.userId}">
+				<c:set var="actionUrl" value="/user/update" />
+				<c:set var="submitValue" value="정보수정" />
+				</c:if>
+				
+				</div>
+				<form name="user" method="post" action="${actionUrl}">
 					<table>
 						<tr>
 							<td>사용자 아이디</td>
-							<td><input type="text" name="userId"></td>
+							<c:choose>
+							<c:when test="${empty user.userId}">
+								<td><input type="text" name="userId" value="${user.userId}"></td>
+							</c:when>
+							<c:otherwise>
+								<td>${user.userId}<input type="hidden" name="userId" value="${user.userId}" /></td>
+							</c:otherwise>
+							</c:choose>
 						</tr>
 						<tr>
 							<td>비밀번호</td>
-							<td><input type="password" name="password"></td>
+							<td><input type="password" name="password" value="${user.password}"></td>
 						</tr>
 						<tr>
 							<td>이름</td>
-							<td><input type="text" name="name"></td>
+							<td><input type="text" name="name" value="${user.name}"></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input type="text" name="email"></td>
+							<td><input type="text" name="email" value="${user.email}"></td>
 						</tr>
 					</table>
-					<input type="submit" value="회원가입" />
+					<input type="submit" value="${submitValue}" />
 				</form>
 			</div>
 		</div>

@@ -45,11 +45,21 @@ public class UpdateUser extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String userId = request.getParameter("userId");
+		String password = request.getParameter("password");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		User user = new User(userId, password, name, email);
+		UserDAO userDAO = new UserDAO();
+		try {
+			userDAO.update(user);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect("/");
 	}
 
 }

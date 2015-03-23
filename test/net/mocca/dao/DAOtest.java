@@ -24,11 +24,20 @@ public class DAOtest {
 	
 	@Test
 	public void CRUDTest() throws SQLException{
+		//초기화
 		User user = new User("test","1234","kim","test@mail.com");
 		userDAO.delete(user.getUserId());
+		
+		//추가 테스트
 		userDAO.insert(user);
 		User findedUser = userDAO.select(user.getUserId());
+		assertEquals(user, findedUser);
 		
-		assertEquals(user,findedUser);
+		//수정 테스트
+		User updateUser = new User("test","1234","gim","test@mail.com");
+		userDAO.update(updateUser);
+		findedUser = userDAO.select(user.getUserId());
+		assertEquals(updateUser, findedUser);
+		
 	}
 }
